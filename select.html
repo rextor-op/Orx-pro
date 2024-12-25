@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Particle Animation with Buttons</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #000000, #000000);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Particle animation container */
+    .particle-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* Outer glowing stroke container */
+    .glowing-container {
+      padding: 20px;
+      border: 5px solid rgba(255, 0, 0, 0.8);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+    }
+
+    /* Button container styling */
+    .button-row {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0;
+    }
+
+    .button {
+      display: inline-block;
+      width: 150px;
+      padding: 15px;
+      margin: 5px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      background-color: #ff0000;
+      box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/gh/ibrahimsn98/particle.js/particle.min.js"></script>
+</head>
+<body>
+  <div class="particle-container" id="particle-container"></div>
+  
+  <div class="glowing-container">
+    <div class="button-row">
+      <a href="wingo.html" class="button">WINGO</a>
+      <a href="mines.html" class="button">MINES</a>
+    </div>
+    <div class="button-row">
+      <a href="k3.html" class="button">K3</a>
+      <a href="aviator.html" class="button">AVIATOR</a>
+    </div>
+  </div>
+
+  <script>
+    // Initialize Particle.js
+    const particleView = new ParticleView({
+      canvas: document.getElementById('particle-container'),
+      particleColor: '#ff0000',
+      interactive: true,
+      density: 10000,
+      speed: 1.5,
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emoji Grid with Reset</title>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      font-family: Arial, sans-serif;
+    }
+
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .center-linear {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 15px red, 0 0 30px red;
+    }
+
+    .emoji-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 50px);
+      grid-gap: 10px;
+      margin-bottom: 20px;
+      font-size: 40px;
+      text-align: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      color: white;
+      background-color: red;
+      box-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+
+  <div class="center-linear">
+    <div class="emoji-grid" id="emoji-grid">
+      <!-- The grid of emojis will be generated here -->
+    </div>
+    <button id="result-button">RESULT</button>
+  </div>
+
+  <script>
+    // Particle.js Initialization
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 100, density: { enable: true, value_area: 800 } },
+        color: { value: "#ff0000" }, // Red particles
+        shape: { type: "circle" },
+        opacity: { value: 0.5, random: true },
+        size: { value: 5, random: true },
+        move: { enable: true, speed: 2 }
+      }
+    });
+
+    const emojiGrid = document.getElementById('emoji-grid');
+    const resultButton = document.getElementById('result-button');
+
+    // Generate initial 5x5 grid of bomb emojis
+    const generateGrid = () => {
+      emojiGrid.innerHTML = '';
+      for (let i = 0; i < 25; i++) {
+        const emoji = document.createElement('div');
+        emoji.textContent = '💣';
+        emoji.classList.add('emoji');
+        emojiGrid.appendChild(emoji);
+      }
+    };
+
+    // Replace 4 random positions with stars
+    const replaceWithStars = () => {
+      const allEmojis = Array.from(emojiGrid.children);
+      let replacedCount = 0;
+
+      while (replacedCount < 4) {
+        const randomIndex = Math.floor(Math.random() * allEmojis.length);
+        const emoji = allEmojis[randomIndex];
+
+        if (emoji.textContent === '💣') {
+          emoji.textContent = '⭐';
+          replacedCount++;
+        }
+      }
+    };
+
+    // Initialize the grid
+    generateGrid();
+
+    // Handle RESULT button click
+    resultButton.addEventListener('click', () => {
+      generateGrid(); // Reset the grid to all bombs
+      replaceWithStars(); // Replace 4 random bombs with stars
+    });
+  </script>
+</body>
+</html>

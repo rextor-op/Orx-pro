@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Animation</title>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      font-family: Arial, sans-serif;
+    }
+
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .center-linear {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid red;
+      box-shadow: 0 0 15px red, 0 0 30px red;
+      padding: 20px;
+      margin: auto;
+      width: 80%;
+      height: auto;
+      background-color: rgba(0, 0, 0, 0.5);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .header-text {
+      font-size: 16px;
+      color: white;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .glowing-text {
+      font-size: 24px;
+      color: white;
+      text-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red;
+      margin: 10px;
+    }
+
+    .horizontal {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .vertical {
+      margin: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      margin: 10px;
+      border-radius: 5px;
+    }
+
+    .glowing-purple {
+      color: white;
+      background: purple;
+      box-shadow: 0 0 10px purple, 0 0 20px purple, 0 0 30px purple;
+    }
+
+    .glowing-red {
+      color: white;
+      background: red;
+      box-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red;
+    }
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+
+  <div class="center-linear">
+    <div class="header-text">WELCOME TO ORX MOD<br> K3 1 MIN</div>
+    <div class="horizontal">
+      <div id="textview1" class="glowing-text">TextView1</div>
+      <div id="textview2" class="glowing-text">TextView2</div>
+    </div>
+    <div id="textview3" class="glowing-text vertical">TextView3</div>
+    <button id="check" class="glowing-purple">CHECK</button>
+    <button id="telegram" class="glowing-red" onclick="window.open('https://t.me/+UXXqSylBcNZhMGM9')">TELEGRAM</button>
+  </div>
+
+  <script>
+    // Particle.js Initialization
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 100, density: { enable: true, value_area: 800 } },
+        color: { value: "#ffffff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5, random: true },
+        size: { value: 5, random: true },
+        move: { enable: true, speed: 2 }
+      }
+    });
+
+    const textview1 = document.getElementById('textview1');
+    const textview2 = document.getElementById('textview2');
+    const textview3 = document.getElementById('textview3');
+    const checkBtn = document.getElementById('check');
+
+    const options = [
+      "BIG", "small", "EVEN", "ODD" , "SKIP"
+    ];
+
+    let checkClicked = false;
+    let previousTextview1 = "";
+
+    // Monitor changes in textview1
+    const monitorTextview1 = () => {
+      const now = new Date();
+      const startTime = new Date();
+      startTime.setHours(5, 29, 0, 0);
+
+      const elapsedMinutes = Math.max(0, Math.floor((now - startTime) / 60000));
+      const newTextview1 = `${now.toISOString().split('T')[0].replace(/-/g, '')}100001${String(elapsedMinutes).padStart(4, '0')}`;
+      
+      if (newTextview1 !== previousTextview1) {
+        previousTextview1 = newTextview1;
+        textview1.textContent = newTextview1;
+        checkClicked = false; // Enable the check button again
+      }
+    };
+
+    // Periodically update textview1 and textview2
+    setInterval(() => {
+      const now = new Date();
+      const remainingSeconds = 60 - now.getSeconds();
+      monitorTextview1();
+      textview2.textContent = `00:${String(remainingSeconds).padStart(2, '0')}`;
+    }, 1000);
+
+    // Handle Check Button Click
+    checkBtn.addEventListener('click', () => {
+      if (!checkClicked) {
+        checkClicked = true;
+        textview3.textContent = options[Math.floor(Math.random() * options.length)];
+      } else {
+        textview3.textContent = "TRY ON NXT PERIOD";
+      }
+    });
+  </script>
+</body>
+</html>
